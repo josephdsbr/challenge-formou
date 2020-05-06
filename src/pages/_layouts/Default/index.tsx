@@ -1,9 +1,12 @@
 import React from 'react';
-import { Container } from './styles';
+import { Container, Content, DefaultHeader } from './styles';
 
 const DefaultLayout: React.FC = ({ children }) => (
   <Container>
-    {children}
+    <DefaultHeader />
+    <Content>
+      {children}
+    </Content>
   </Container>
 );
 

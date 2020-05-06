@@ -9,8 +9,15 @@ export default createGlobalStyle`
 
   body {
     background: ${(props) => props.theme.colors.background};
-    font-size: 14px;
     color: ${(props) => props.theme.colors.text};
-    font-family: sans-serif;
+    font-family: Helvetica, sans-serif;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  html, body, #root {
+    height: 100%;
   }
 `;
