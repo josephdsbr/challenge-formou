@@ -4,7 +4,7 @@ import { Reducer } from 'redux';
 
 export default (reducers: Reducer) => persistReducer(
   {
-    key: 'blank_typescript_frontend',
+    key: 'desafio-formou',
     storage,
     whitelist: ['auth', 'tasks'],
   },
