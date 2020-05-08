@@ -6,8 +6,8 @@ const Header: React.FC = () => (
     <Logo>
       <span>LOGO</span>
     </Logo>
-    <MenuLink to="/" activeClassName="selected">Tarefas</MenuLink>
-    <MenuLink to="/users" activeClassName="selected">Usuários</MenuLink>
+    <MenuLink to="/tasks" activeClassName="selected">Tarefas</MenuLink>
+    <MenuLink to="/user" activeClassName="selected">Usuários</MenuLink>
   </Container>
 );
 

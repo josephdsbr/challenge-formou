@@ -4,6 +4,8 @@ export const Container = styled.div`
   width: 70%;
   height: 90%;
   background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 3px 6px #00000029;
 `;
 
 export const Table = styled.div`
@@ -14,6 +16,7 @@ export const Table = styled.div`
 
 export const TableContentLine = styled.div`
   width: 100%;
+  margin: 1rem 0;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -44,8 +47,11 @@ export const TableItemContainer = styled.div`
 
 export const TableContent = styled.div`
   height: 90%;
+  max-height: 90%;
+  overflow: scroll;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
 
@@ -67,7 +73,7 @@ export const TableContent = styled.div`
 `;
 
 type StatusInfoProps = {
-  status: string;
+  status: boolean;
 }
 
 export const StatusInfo = styled.span<StatusInfoProps>`
@@ -75,7 +81,7 @@ export const StatusInfo = styled.span<StatusInfoProps>`
   background: red;
   border-radius: 0.4rem;
 
-  ${props => props.status === 'Feito' ? css`
+  ${props => props.status ? css`
     background: ${rgba('#87B634', 0.08)} ;
     color: #87B634;
   ` : css`

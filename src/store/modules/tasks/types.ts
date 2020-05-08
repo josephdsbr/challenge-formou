@@ -1,5 +1,6 @@
 export interface TaskModel {
-  users: UserModel[] | null;
+  users: UserModel[];
+  items: TasksItemModel[];
   loading?: boolean;
   error?: Error;
 }
@@ -33,8 +34,25 @@ export interface CompanyModel {
   bs: string;
 }
 
+export interface TasksItemModel {
+  id: number;
+  user: UserModel;
+  title: string;
+  completed: boolean;
+}
+
+export interface TasksResponseModel {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
 export enum ClientTypes {
   USERS_FETCH_REQUEST = '[USERS] FETCH REQUEST',
   USERS_FETCH_SUCCESS = '[USERS] FETCH SUCCESS',
   USERS_FETCH_FAILURE = '[USERS] FETCH FAILURE',
+  TASKS_FETCH_REQUEST = '[TASKS] FETCH REQUEST',
+  TASKS_FETCH_SUCCESS = '[TASKS] FETCH SUCCESS',
+  TASKS_FETCH_FAILURE = '[TASKS] FETCH FAILURE'
 }

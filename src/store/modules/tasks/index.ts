@@ -1,8 +1,8 @@
-import { action } from 'typesafe-actions';
 import { Reducer } from 'redux';
-import { UserModel, TaskModel, ClientTypes } from './types';
+import { TaskModel, ClientTypes, TasksResponseModel, TasksItemModel } from './types';
 const INITIAL_STATE: TaskModel = {
-  users: null,
+  users: [],
+  items: [],
 }
 
 const reducer: Reducer<TaskModel> = (state = INITIAL_STATE, action) => {
@@ -10,10 +10,21 @@ const reducer: Reducer<TaskModel> = (state = INITIAL_STATE, action) => {
     case ClientTypes.USERS_FETCH_REQUEST:
       return { ...state, loading: true };
     case ClientTypes.USERS_FETCH_SUCCESS:
-      console.log(action);
       return { ...state, users: action.payload.data, loading: true};
     case ClientTypes.USERS_FETCH_FAILURE:
       return {...state, error: action.payload.error, loading: false}
+    case ClientTypes.TASKS_FETCH_SUCCESS:
+      const { users } = state;
+      const { data } = action.payload; 
+      const tasks: TasksItemModel[] = [];
+      data?.map((task: TasksResponseModel) => {
+        const index = users?.findIndex(user => user.id === task.userId);
+        if (index) {
+          const user = users![index];
+          tasks.push({ id: task.id, user, title: task.title, completed: task.completed })
+        }
+      })
+      return {...state, items: tasks}
     default:
       return state;
   }

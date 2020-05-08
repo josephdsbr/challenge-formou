@@ -6,7 +6,7 @@ export default (reducers: Reducer) => persistReducer(
   {
     key: 'blank_typescript_frontend',
     storage,
-    whitelist: ['auth', 'client'],
+    whitelist: ['auth', 'tasks'],
   },
   reducers,
 );

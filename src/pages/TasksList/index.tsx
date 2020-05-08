@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clientFetchUsersRequest } from '../../store/modules/tasks/actions';
 import { ApplicationState } from '../../store';
-import { TaskModel } from '../../store/modules/tasks/types';
+import { TaskModel, UserModel } from '../../store/modules/tasks/types';
+import history from '../../services/history';
 import { 
   Container,
   Table,
@@ -15,42 +16,52 @@ import {
  } from './styles';
 
 
-const UsersList: React.FC = () => {
-  const [users, setUsers] = useState([]);
+const TasksList: React.FC = () => {
   const dispatch = useDispatch();
-  const state = useSelector<ApplicationState, ApplicationState>(state => state);
+  const tasks = useSelector<ApplicationState, TaskModel>(state => state.tasks);
+  
   useEffect(() => {
     async function LoadUsers() {
-      dispatch(clientFetchUsersRequest(1));
-      
+      dispatch(clientFetchUsersRequest(1)); 
     }
-    
     LoadUsers();
-    console.log(state)
   }, [])
 
-  return <Container>
+  const onHandleSelectUser = (user: UserModel) => {
+    history.push('/user', user);
+  }
+
+  return (<Container>
     <Table>
       <TableHeader>
         <TableHeaderItem>Tarefa</TableHeaderItem>
         <TableHeaderItem>Responsável</TableHeaderItem>
         <TableHeaderItem>Status</TableHeaderItem>
       </TableHeader>
-      <TableContent>
+      <TableContent> 
+        {
+          tasks.items.map(item => (
         <TableContentLine>
           <TableItemContainer>
-            <span className="tarefa">Criar telas</span>
+            <span className="tarefa">{item?.title}</span>
           </TableItemContainer>
           <TableItemContainer>
-            <span className="responsavel">Marília Mendonça</span>
+            <span
+             className="responsavel"
+             onClick={() => onHandleSelectUser(item?.user)}
+             >{item?.user?.username}</span>
           </TableItemContainer>
           <TableItemContainer>
-            <StatusInfo status="Feito">Feito</StatusInfo>
+            <StatusInfo status={item.completed}>{item.completed ? 'Feito' : 'Pendente'}</StatusInfo>
           </TableItemContainer>  
         </TableContentLine>
+          ))
+        }
+        
       </TableContent>
     </Table>
   </Container>
+  )
 };
 
-export default UsersList;
+export default TasksList;
