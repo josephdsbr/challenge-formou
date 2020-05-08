@@ -1,5 +1,5 @@
-export interface ClientModel {
-  users: UserModel[];
+export interface TaskModel {
+  users: UserModel[] | null;
   loading?: boolean;
   error?: Error;
 }

@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clientFetchUsersRequest } from '../../store/modules/tasks/actions';
+import { ApplicationState } from '../../store';
+import { TaskModel } from '../../store/modules/tasks/types';
 import { 
   Container,
   Table,
@@ -10,13 +14,19 @@ import {
   TableContentLine
  } from './styles';
 
+
 const UsersList: React.FC = () => {
   const [users, setUsers] = useState([]);
-  
+  const dispatch = useDispatch();
+  const state = useSelector<ApplicationState, ApplicationState>(state => state);
   useEffect(() => {
     async function LoadUsers() {
-     console.log('oie');
+      dispatch(clientFetchUsersRequest(1));
+      
     }
+    
+    LoadUsers();
+    console.log(state)
   }, [])
 
   return <Container>

@@ -10,6 +10,6 @@ if (process.env.NODE_ENV === 'development') {
     .use(reactotronSaga())
     .connect();
 
-  // eslint-disable-next-line no-console
-  //console.tron = tron;
+  // @ts-ignore
+  console.tron = tron;
 }
